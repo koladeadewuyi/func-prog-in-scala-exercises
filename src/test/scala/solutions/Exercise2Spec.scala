@@ -1,6 +1,7 @@
 package solutions
 
 import Exercise2._
+import org.joda.time.Duration._
 
 class Exercise2Spec extends TestFixture {
 
@@ -65,11 +66,29 @@ class Exercise2Spec extends TestFixture {
     describe("array of strings") {
       val strings = Table(
         ("array", "sorted"),
+        (Vector("a", "b"), true),
+        (Vector("b", "a"), false),
+        (Vector("b", "b"), true),
         (Vector("abc", "def", "ghi"), true),
-        (Vector("abc", "ghi", "def"), false)
+        (Vector("abc", "ghi", "def"), false),
+        (Vector("abc", "abi"), true)
       )
 
       forAll(strings) { (array, sorted) =>
+        it(s"should return $sorted when given ${array.mkString(",")}") {
+          isSorted(array) shouldBe sorted
+        }
+      }
+    }
+
+    describe("array of Joda Durations") {
+      val durations = Table(
+        ("array", "sorted"),
+        (Vector(standardHours(1), standardHours(2), standardHours(3)), true),
+        (Vector(standardDays(1), standardHours(1), standardHours(2)), false)
+      )
+
+      forAll(durations) { (array, sorted) =>
         it(s"should return $sorted when given ${array.mkString(",")}") {
           isSorted(array) shouldBe sorted
         }
