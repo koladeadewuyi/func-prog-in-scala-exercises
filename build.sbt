@@ -8,5 +8,9 @@ lazy val root = (project in file(".")).
       version      := "0.1.0-SNAPSHOT"
     )),
     name := "func-programming-in-scala-exercises",
-    libraryDependencies += scalaTest % Test
+    libraryDependencies ++= Seq(
+      jodaTime,
+      jodaConvert,
+      scalaTest % Test
+    )
   )
